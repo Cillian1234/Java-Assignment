@@ -1,0 +1,20 @@
+
+Item purchased: Latte
+Price: 8.0
+Transaction type: Cash: Cash tendered: 0.0
+@ 31-03-2023 17:56:50
+
+Item purchased: Drink
+Price: 4.0
+Transaction type: Cash: Cash tendered: 0.0
+@ 31-03-2023 18:01:37
+
+Item purchased: cheese
+Price: 53.0
+Transaction type: CANCELLED
+@ 31-03-2023 18:06:21
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: CANCELLED
+@ 31-03-2023 18:18:52
