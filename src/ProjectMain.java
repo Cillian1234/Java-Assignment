@@ -12,7 +12,7 @@ import java.util.*;
 * All user input will be strictly integers and doubles (except it isn't anymore there is one string input), but they will be taken in strings and checked to confirm if they are numbers. This means there is a lot of parsing to ints and doubles in here
 */
 
-public class AssignmentFrThisTime {
+public class ProjectMain {
         static Validation validator = new Validation(); // Creates validator object
         static AssignItems assigner = new AssignItems(); // Creates arraylists containing items
         static Scanner sc = new Scanner(System.in);
