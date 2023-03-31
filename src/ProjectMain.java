@@ -24,7 +24,7 @@ public class ProjectMain {
             ArrayList<String> items = assigner.getItems(); // Assigns items from assigner object to arraylist to make it simpler to use
             ArrayList<Double> prices = assigner.getPrices(); // " prices "
 
-            int drinkSelectionFinal = 0; // Stores index of drink selection in items ArrayList, this index also points to price of drink in prices ArrayList
+            int drinkSelection = 0; // Stores index of drink selection in items ArrayList, this index also points to price of drink in prices ArrayList
             int transactionType = 0; // Stores transaction type returned by transactionType(), used in writeTransactions()
             String cardType = null; // Stores card type used, used in writeTransactions()
             double cashTendered = 0; // Stores cash tendered in cash transactions
@@ -32,8 +32,8 @@ public class ProjectMain {
 
             // Handles running of drinkMenu and exit from menu
             while (!stepComplete) {
-                drinkSelectionFinal = drinkMenu(items, prices);
-                if (drinkSelectionFinal == items.size()) {
+                drinkSelection = drinkMenu(items, prices);
+                if (drinkSelection == items.size()) {
                     stepComplete = exitConfirmation();
                 } else {
                     stepComplete = true;
@@ -41,19 +41,21 @@ public class ProjectMain {
             }
 
             stepComplete = false; // Reset to false to run more whiles
+
+            // Handles choosing transaction type, running cash calculations or choosing card type
             while (!stepComplete) {
                 transactionType = transactionType();
                 if (transactionType == 1) {
-                    cashTendered = cashMaths(prices, drinkSelectionFinal);
+                    cashTendered = cashMaths(prices, drinkSelection);
                     stepComplete = true;
                 } else if (transactionType == 2) {
-                    cardType = cardType(prices, drinkSelectionFinal);
+                    cardType = cardType(prices, drinkSelection);
                     stepComplete = true;
                 } else {
                     stepComplete = exitConfirmation();
                 }
             }
-            writeTransactions(items, prices, drinkSelectionFinal, transactionType, cashTendered, cardType);
+            writeTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType);
         }
     }
 
