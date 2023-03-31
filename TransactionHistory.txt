@@ -18,3 +18,23 @@ Item purchased: Black coffee
 Price: 7.5
 Transaction type: CANCELLED
 @ 31-03-2023 18:18:52
+
+Item purchased: Another Drink
+Price: 10.15
+Transaction type: CANCELLED
+@ 31-03-2023 20:12:43
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: CANCELLED
+@ 31-03-2023 20:13:35
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: CANCELLED
+@ 31-03-2023 20:15:07
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Card: MasterCard
+@ 31-03-2023 20:15:42

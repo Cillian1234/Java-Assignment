@@ -1,5 +1,5 @@
 /*
-    ? WORKING ON SAVING TRANSACTIONS TO ARRAYLIST THEN PRINTING WHEN PROGRAM CLOSED ?
+    ? WORKING ON CARD TRANSACTIONS SAVED AS CANCELLED ?
     ! BUILD WORKS !
 */
 
@@ -9,7 +9,7 @@ import java.time.format.*;
 import java.util.*;
 
 /*
-* All user input will be strictly integers and doubles, but they will be taken in strings and checked to confirm if they are numbers. This means there is a lot of parsing to ints and doubles in here
+* All user input will be strictly integers and doubles (except it isn't anymore there is one string input), but they will be taken in strings and checked to confirm if they are numbers. This means there is a lot of parsing to ints and doubles in here
 */
 
 public class AssignmentFrThisTime {
@@ -126,7 +126,7 @@ public class AssignmentFrThisTime {
                             cashGiven = true;
                         }
                     } else if (extraCash.equalsIgnoreCase("CANCEL")){ // If customer can't afford item, typing cancel will abort the transaction
-                        return 0;
+                        return -1; // -1 is impossible to return unless the code runs through this branch, used to save transaction as CANCELLED
                     }
                 }
             }
@@ -173,7 +173,7 @@ public class AssignmentFrThisTime {
 
     static void writeTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to history file along with date and time of sale */
     {
-        if (cashTendered == 0) {
+        if (cashTendered == -1) { // -1 is returned by cashMaths() if the order is aborted, impossible to return this number otherwise
             try {
                 FileWriter transactionWrite = new FileWriter("TransactionHistory.txt", true); // Opens filewriter in transaction history file, set to append to file
                 transactionWrite.write("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: CANCELLED" + "\n@ " + dateTime() + "\n"); // Writes everything to file CANCELLED TRANSACTION
