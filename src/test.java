@@ -19,7 +19,7 @@ public class test {
                 tempList.add(reader.nextLine());
             }
             reader.close();
-            System.out.println("that worked i guess");
+
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class test {
             }
         }
 
-        System.out.println(items+"lets try that agina");
+        System.out.println(items);
         System.out.println(prices);
 
     }

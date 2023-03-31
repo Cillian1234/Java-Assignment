@@ -8,7 +8,7 @@ import java.util.*;
 public class AssignItems {
     ArrayList<Double> prices = new ArrayList<>(); // Arraylists for prices and names of items which we will return to the main class
     ArrayList<String> items = new ArrayList<>();
-
+//github
     AssignItems() /* Reads inventory file and assigns each line to items arraylist, currently does not handle prices separately */
     {
         Validation validator = new Validation(); // Creates validator object

@@ -13,7 +13,7 @@ public class Validation {
          return false;
         }
     }
-
+//github
     boolean validateDoubles(String input) /* Checks if inputs are doubles */
     {
         try {

@@ -18,7 +18,7 @@ public class AssignmentFrThisTime {
         static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         System.out.println("\nWelcome to the cafe");
-        System.out.println("git");
+
         while (0==0) {
             
             ArrayList<String> items = assigner.getItems(); // Assigns items from assigner object to arraylist to make it simpler to use
