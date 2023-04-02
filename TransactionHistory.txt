@@ -38,3 +38,8 @@ Item purchased: Black coffee
 Price: 7.5
 Transaction type: Card: MasterCard
 @ 31-03-2023 20:15:42
+
+Item purchased: Dunno
+Price: 109.0
+Transaction type: Cash: Cash tendered: 110.0
+@ 02-04-2023 15:34:55
