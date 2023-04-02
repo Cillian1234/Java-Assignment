@@ -1,6 +1,6 @@
 /*
-    ? WORKING ON CODE CLEANUP ?
-    ! BUILD WORKS !
+    ? WORKING ON CASH VALIDATION ?
+    ! BUILD BROKEN !
 */
 
 import java.io.*;
@@ -108,7 +108,7 @@ public class ProjectMain {
         while (!valid) {
             System.out.printf("Cash transaction: \nPrice €%.2f \nEnter amount tendered: \n", prices.get(priceIndex));
             cashTendered = sc.nextLine();
-            valid = validator.validateDoubles(cashTendered); // Checks input will parse to a double
+            valid = validator.validateCash(cashTendered); // Checks input will parse to a double
             cashTenderedDouble = Double.parseDouble(cashTendered); // Used in maths so parse string to double once here instead of several times later on
 
             if (cashTenderedDouble >= prices.get(priceIndex)){ // Checks if amount entered is sufficient to pay for item
@@ -116,11 +116,11 @@ public class ProjectMain {
             } else if (cashTenderedDouble <= prices.get(priceIndex)) { // if amount entered is not sufficient to pay for item
                 while (!cashGiven) { // Reruns code while total amount of money given is not enough to pay for item
 
-                    System.out.printf("You are %.2f short \n", (prices.get(priceIndex)-cashTenderedDouble)); // Calculates and prints how much money you are short of price
+                    System.out.printf("You are €%.2f short \n", (prices.get(priceIndex)-cashTenderedDouble)); // Calculates and prints how much money you are short of price
                     System.out.println("Please enter extra cash given or type CANCEL to cancel transaction: ");
                     String extraCash = sc.nextLine();
 
-                    if (validator.validateDoubles(extraCash)) { // Validates input is a double again
+                    if (validator.validateCash(extraCash)) { // Validates input is a double again
                         double extraCashDouble = Double.parseDouble(extraCash); // Also used in maths so parsed to double
                         cashTenderedDouble = cashTenderedDouble+extraCashDouble; // Add extra cash to total given
                         if (cashTenderedDouble >= prices.get(priceIndex)) { // If total is more than price of item, break loop
