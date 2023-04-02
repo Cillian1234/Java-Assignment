@@ -48,3 +48,8 @@ Item purchased: Black coffee
 Price: 7.5
 Transaction type: CANCELLED
 @ 02-04-2023 15:46:40
+
+Item purchased: Another Drink
+Price: 10.15
+Transaction type: Cash: Cash tendered: -10.0
+@ 02-04-2023 16:28:06

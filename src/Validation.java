@@ -25,16 +25,11 @@ public class Validation {
     }
 
     boolean validateCash(String input) /* Used to check if cash entered during transaction is more than 0 (prevents negative numbers) */ {
-        int num;
         try {
-            num = Integer.parseInt(input);
+            return Double.parseDouble(input) > 0;
         } catch (NumberFormatException e) {
             return false;
         }
-        if (Double.compare(num, 0)<0) {
-            return true;
-        }
-        return false;
     }
 
 }
