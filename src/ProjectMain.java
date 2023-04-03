@@ -1,6 +1,6 @@
 /*
     ? WORKING ON GOD KNOWS WHAT ?
-    ! BUILD BROKEN !
+    ! BUILD WORKING !
 */
 
 import java.io.*;
@@ -17,10 +17,11 @@ public class ProjectMain {
         static AssignItems assigner = new AssignItems(); // Creates arraylists containing items
         static Scanner sc = new Scanner(System.in); // Creates scanner used for user input
     public static void main(String[] args) {
+        boolean running = true;
         System.out.println("\nWelcome to the cafe");
 
         // While is set to a temporary value that is always true, this will probably be reworked later on
-        while (true) {
+        while (running) {
             
             ArrayList<String> items = assigner.getItems(); // Assigns items from assigner object to arraylist to make it simpler to use
             ArrayList<Double> prices = assigner.getPrices(); // " prices "
@@ -29,33 +30,45 @@ public class ProjectMain {
             int transactionType = 0; // Stores transaction type returned by transactionType(), used in writeTransactions()
             String cardType = null; // Stores card type used, used in writeTransactions()
             double cashTendered = 0; // Stores cash tendered in cash transactions
-            boolean stepComplete = false; // Runs while loops
+            boolean stepNotComplete = true; // Runs while loops
 
             // Handles running of drinkMenu and exit from menu
-            while (!stepComplete) {
+            while (stepNotComplete) {
                 drinkSelection = drinkMenu(items, prices);
                 if (drinkSelection == items.size()) { // items.size will be the same as the number for the "exit" option
-                    stepComplete = exitConfirmation(); // exitConfirmation returns a boolean
+                    stepNotComplete = exitConfirmation(); // exitConfirmation returns a boolean
+                    break;
                 } else {
-                    stepComplete = true;
+                    stepNotComplete = false;
                 }
             }
 
-            stepComplete = false; // Reset to false to run more whiles
+            if (drinkSelection==items.size()) { // drinkSelection = items.size means the user chose the exit option and confirmed their exit, this isn't hard code as the number of items can change
+                System.out.println("Program ended by exit"); // Tells the user what happened
+                break; // Breaks running while loop
+            }
+
+            stepNotComplete = true; // Reset to false to run more whiles
 
             // Handles choosing transaction type, running cash calculations or choosing card type
-            while (!stepComplete) {
+            while (stepNotComplete) {
                 transactionType = transactionType(); // Transaction type used to pick between card and cash, this is used when writing transactions later
                 if (transactionType == 1) {
                     cashTendered = cashMaths(prices, drinkSelection); // Returns double
-                    stepComplete = true;
+                    stepNotComplete = false;
                 } else if (transactionType == 2) {
                     cardType = cardType(prices, drinkSelection); // Returns string
-                    stepComplete = true;
+                    stepNotComplete = false;
                 } else {
-                    stepComplete = exitConfirmation();
+                    stepNotComplete = exitConfirmation(); // Terminates while loop running entire program
                 }
             }
+
+            if (transactionType==3) { // transactionType == 3 means the user chose the exit option and chose to confirm their exit, this is hard coded because there will never be more than 3 options here
+                System.out.println("Program ended by exit"); // Tells the user what happened
+                break; // Breaks running while loop
+            }
+
             writeTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType); // Writes current transaction to history !! runs after each individual transaction !!
         }
     }
@@ -157,11 +170,11 @@ public class ProjectMain {
                 cardType = validator.removeSpaces(cardType); // Removes spaces in input which caused errors
                 valid = validator.validateInts(cardType, 1); // Checks input is an integer and within acceptable range, returns boolean
             }
-            switch (Integer.parseInt(cardType)) {
-                case 1: return "Visa";
-                case 2: return "MasterCard";
+            if (Integer.parseInt(cardType)==1) {
+                return "Visa";
+            } else {
+                return "MasterCard";
             }
-        return ""; // Redundant return, program will never make it to here, but it won't compile without this
     }
 
     static boolean exitConfirmation() /* Menu for when exit is chosen, will either terminate program or return to process in which exit was chosen */
@@ -177,11 +190,11 @@ public class ProjectMain {
             //Checks input is an integer and within acceptable range, returns boolean // Boundary of 2 hard coded because there will only ever be two options here
             valid = validator.validateInts(selection, 2);
         }
-        switch (Integer.parseInt(selection)) {
-            case 1: System.exit(1); // If you choose option 1, "Yes", The program will end
-            case 2: return false; // If you choose option 2, "No", return false which causes while loop for whatever step of the process you are on to continue running, so you can continue with transaction
-        }
-        return true; // Redundant return, program will never make it to here, but it won't compile without this
+
+        if (Integer.parseInt(selection)==1)
+            return false; // Returning false sets boolean running to false which breaks while loop
+        else
+            return true; // If you choose option 2, "No", return true which causes while loop for whatever step of the process you are on to continue running, so you can continue with transaction
     }
 
     static void writeTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to history file along with date and time of sale */
