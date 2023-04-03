@@ -17,14 +17,14 @@ public class ProjectMain {
         static AssignItems assigner = new AssignItems(); // Creates arraylists containing items
         static Scanner sc = new Scanner(System.in); // Creates scanner used for user input
     public static void main(String[] args) {
-        boolean running = true;
+            boolean running = true;
+            ArrayList<String> items = assigner.getItems(); // Assigns items from assigner object to arraylist to make it simpler to use
+            ArrayList<Double> prices = assigner.getPrices(); // " prices "
+
         System.out.println("\nWelcome to the cafe");
 
         // While is set to a temporary value that is always true, this will probably be reworked later on
         while (running) {
-            
-            ArrayList<String> items = assigner.getItems(); // Assigns items from assigner object to arraylist to make it simpler to use
-            ArrayList<Double> prices = assigner.getPrices(); // " prices "
 
             int drinkSelection = 0; // Stores index of drink selection in items ArrayList, this index also points to price of drink in prices ArrayList
             int transactionType = 0; // Stores transaction type returned by transactionType(), used in writeTransactions()

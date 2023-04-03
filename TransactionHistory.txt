@@ -224,3 +224,9 @@ Price: 7.5
 Transaction type: Cash: Cash tendered: 8.0
 Change due: 0.5
 @ 04-04-2023 00:40:56
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Cash: Cash tendered: 9.0
+Change due: 1.5
+@ 04-04-2023 00:48:40
