@@ -103,3 +103,33 @@ Item purchased: Black coffee
 Price: 7.5
 Transaction type: Cash: Cash tendered: 12.0
 @ 03-04-2023 17:00:05
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Cash: Cash tendered: 7.5
+@ 03-04-2023 17:06:14
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Cash: Cash tendered: 8.0
+@ 03-04-2023 17:06:19
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Cash: Cash tendered: 7.5
+@ 03-04-2023 17:06:37
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: CANCELLED
+@ 03-04-2023 17:06:52
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Card: Visa
+@ 03-04-2023 17:07:11
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Card: MasterCard
+@ 03-04-2023 17:07:13
