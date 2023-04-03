@@ -1,5 +1,5 @@
 /*
-    ? WORKING ON CASH VALIDATION ?
+    ? WORKING ON GOD KNOWS WHAT ?
     ! BUILD BROKEN !
 */
 
@@ -15,11 +15,12 @@ import java.util.*;
 public class ProjectMain {
         static Validation validator = new Validation(); // Creates validator object
         static AssignItems assigner = new AssignItems(); // Creates arraylists containing items
-        static Scanner sc = new Scanner(System.in);
+        static Scanner sc = new Scanner(System.in); // Creates scanner used for user input
     public static void main(String[] args) {
         System.out.println("\nWelcome to the cafe");
 
-        while (0==0) {
+        // While is set to a temporary value that is always true, this will probably be reworked later on
+        while (true) {
             
             ArrayList<String> items = assigner.getItems(); // Assigns items from assigner object to arraylist to make it simpler to use
             ArrayList<Double> prices = assigner.getPrices(); // " prices "
@@ -33,8 +34,8 @@ public class ProjectMain {
             // Handles running of drinkMenu and exit from menu
             while (!stepComplete) {
                 drinkSelection = drinkMenu(items, prices);
-                if (drinkSelection == items.size()) {
-                    stepComplete = exitConfirmation();
+                if (drinkSelection == items.size()) { // items.size will be the same as the number for the "exit" option
+                    stepComplete = exitConfirmation(); // exitConfirmation returns a boolean
                 } else {
                     stepComplete = true;
                 }
@@ -44,18 +45,18 @@ public class ProjectMain {
 
             // Handles choosing transaction type, running cash calculations or choosing card type
             while (!stepComplete) {
-                transactionType = transactionType();
+                transactionType = transactionType(); // Transaction type used to pick between card and cash, this is used when writing transactions later
                 if (transactionType == 1) {
-                    cashTendered = cashMaths(prices, drinkSelection);
+                    cashTendered = cashMaths(prices, drinkSelection); // Returns double
                     stepComplete = true;
                 } else if (transactionType == 2) {
-                    cardType = cardType(prices, drinkSelection);
+                    cardType = cardType(prices, drinkSelection); // Returns string
                     stepComplete = true;
                 } else {
                     stepComplete = exitConfirmation();
                 }
             }
-            writeTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType);
+            writeTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType); // Writes current transaction to history !! runs after each individual transaction !!
         }
     }
 
@@ -68,13 +69,16 @@ public class ProjectMain {
         for (int i = 1; i <= items.size(); i++) {
             System.out.printf("%-3d| %-20s %.2f\n", i, items.get(i-1), prices.get(i-1)); // Prints out numbered menu with drink name and price
         }
+
         System.out.printf("%-3d| Exit \n",items.size()+1); // Prints out numbered exit option
+
         while (!valid) {
             System.out.println("Please make a selection by entering the number of item: ");
             selection = sc.nextLine();
-            valid = validator.validateInts(selection, items.size());
+            selection = validator.removeSpaces(selection); // Removes spaces in input which caused errors
+            valid = validator.validateInts(selection, items.size()); // Checks input is an integer and within acceptable range, returns boolean
         }
-        return Integer.parseInt(selection)-1;
+        return Integer.parseInt(selection)-1; // Returns index of selection in ArrayList, also corresponds to price in prices ArrayList
     }
 
     static int transactionType() /* Menu for choosing transaction type, returns string containing the transaction type. String returned is printed into transaction history */
@@ -87,7 +91,8 @@ public class ProjectMain {
             System.out.println("1. Cash \n2. Card \n3. Exit");
             System.out.println("Please make a selection by entering the number of item: ");
             transactionChoice = sc.nextLine();
-            valid = validator.validateInts(transactionChoice, 2);
+            transactionChoice = validator.removeSpaces(transactionChoice); // Removes spaces in input which caused errors
+            valid = validator.validateInts(transactionChoice, 2); // Checks input is an integer and within acceptable range, returns boolean
         }
 
         switch (Integer.parseInt(transactionChoice)) {
@@ -103,12 +108,12 @@ public class ProjectMain {
         boolean valid = false; // While loops
         boolean cashGiven = false; // Use to check cash given is enough to pay
         double cashTenderedDouble = 0; // Initialise variable used when user string input is parsed to double
-        String cashTendered = null; // String input taken from user
+        String cashTendered; // String input taken from user
 
         while (!valid) {
             System.out.printf("Cash transaction: \nPrice €%.2f \nEnter amount tendered: \n", prices.get(priceIndex));
-            cashTendered = sc.nextLine();
-            valid = validator.validateCash(cashTendered); // Checks input will parse to a double
+            cashTendered = sc.nextLine(); // Removing spaces not necessary
+            valid = validator.validateDoubles(cashTendered); // Checks input is a positive double, returns boolean
             if (valid) {
                 cashTenderedDouble = Double.parseDouble(cashTendered); // Used in maths so parse string to double once here instead of several times later on
             }
@@ -121,9 +126,9 @@ public class ProjectMain {
 
                 System.out.printf("You are €%.2f short \n", (prices.get(priceIndex) - cashTenderedDouble)); // Calculates and prints how much money you are short of price
                 System.out.println("Please enter extra cash given or type CANCEL to cancel transaction: ");
-                String extraCash = sc.nextLine();
+                String extraCash = sc.nextLine(); // Removing spaces not necessary
 
-                if (validator.validateCash(extraCash)) { // Validates input is a double again
+                if (validator.validateDoubles(extraCash)) { // Checks input is a positive double, returns boolean
                     double extraCashDouble = Double.parseDouble(extraCash); // Also used in maths so parsed to double
                     cashTenderedDouble = cashTenderedDouble + extraCashDouble; // Add extra cash to total given
                     if (cashTenderedDouble >= prices.get(priceIndex)) { // If total is more than price of item, break loop
@@ -137,7 +142,7 @@ public class ProjectMain {
         }
 
         System.out.println("Thank you for your purchase!");
-        return cashTenderedDouble;
+        return cashTenderedDouble; // Return double of total cash tendered
     }
 
     static String cardType(ArrayList<Double> prices, int priceIndex) /* Allows you to choose which type of card payment is made with */
@@ -149,7 +154,8 @@ public class ProjectMain {
                 System.out.printf("Card transaction: \nPrice €%.2f \nChoose card type: \n1. Visa\n2. Mastercard\n", prices.get(priceIndex));
                 System.out.println("Please make a selection by entering the number of item: ");
                 cardType = sc.nextLine();
-                valid = validator.validateInts(cardType, 1);
+                cardType = validator.removeSpaces(cardType); // Removes spaces in input which caused errors
+                valid = validator.validateInts(cardType, 1); // Checks input is an integer and within acceptable range, returns boolean
             }
             switch (Integer.parseInt(cardType)) {
                 case 1: return "Visa";
@@ -167,7 +173,9 @@ public class ProjectMain {
             System.out.println("Are you sure you would like to exit? \n1. Yes\n2. No");
             System.out.println("Please make a selection by entering the number of item: ");
             selection = sc.nextLine();
-            valid = validator.validateInts(selection, 2); // Boundary of 2 hard coded because there will only ever be two options here
+            selection = validator.removeSpaces(selection); // Removes spaces in input which caused errors
+            //Checks input is an integer and within acceptable range, returns boolean // Boundary of 2 hard coded because there will only ever be two options here
+            valid = validator.validateInts(selection, 2);
         }
         switch (Integer.parseInt(selection)) {
             case 1: System.exit(1); // If you choose option 1, "Yes", The program will end
