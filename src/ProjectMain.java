@@ -12,6 +12,7 @@ import java.util.*;
 * All user input will be strictly integers and doubles (except it isn't anymore there is one string input), but they will be taken in strings and checked to confirm if they are numbers. This means there is a lot of parsing to ints and doubles in here
 */
 
+@SuppressWarnings("ALL")
 public class ProjectMain {
         static Validation validator = new Validation(); // Creates validator object
         static AssignItems assigner = new AssignItems(); // Creates arraylists containing items
@@ -103,7 +104,7 @@ public class ProjectMain {
         boolean valid = false; // While loops
         boolean cashGiven = false; // Use to check cash given is enough to pay
         double cashTenderedDouble = 0; // Initialise variable used when user string input is parsed to double
-        String cashTendered = null; // String input taken from user
+        String cashTendered; // String input taken from user
 
         while (!valid) {
             System.out.printf("Cash transaction: \nPrice €%.2f \nEnter amount tendered: \n", prices.get(priceIndex));
