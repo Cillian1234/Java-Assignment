@@ -211,11 +211,9 @@ public class ProjectMain {
             try {
                 FileWriter transactionWrite = new FileWriter("TransactionHistory.txt", true); // Opens filewriter in transaction history file, set to append to file
                 if (transactionType == 1) {
-                    transactionWrite.write("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: Cash: " + "Cash tendered: " + cashTendered
-                            + "\n@ " + dateTime() + "\n"); // Writes everything to file
+                    transactionWrite.write("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: Cash: " + "Cash tendered: " + cashTendered + "\nChange due: " + (cashTendered-prices.get(drinkSelection)) + "\n@ " + dateTime() + "\n"); // Writes everything to file
                 } else if (transactionType == 2) {
-                    transactionWrite.write("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: Card: " + cardType
-                            + "\n@ " + dateTime() + "\n"); // Writes everything to file
+                    transactionWrite.write("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: Card: " + cardType + "\n@ " + dateTime() + "\n"); // Writes everything to file
                 }
                 transactionWrite.close(); // Closes filewriter
                 System.out.println("Transaction written to history"); // Confirmation message
