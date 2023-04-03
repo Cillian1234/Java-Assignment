@@ -4,7 +4,7 @@
 
 public class Validation {
 
-    String removeSpaces(String input)
+    String removeSpaces(String input) /* Removes any spaces that may be entered by user as they caused crashes when trying to parse them later on */
     {
         return input.replaceAll(" ", "");
     }
@@ -19,20 +19,11 @@ public class Validation {
         }
     }
 
-    boolean validateDoubles(String input) /* Checks if inputs are doubles */
+    boolean validateDoubles(String input) /* Checks if inputs are positive doubles */
     {
         try {
-            Double.parseDouble(input);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    boolean validateCash(String input) /* Used to check if cash entered during transaction is more than 0 (prevents negative numbers) */
-    {
-        try {
-            return Double.parseDouble(input) > 0;
+            double validInput = Double.parseDouble(input);
+            return (validInput>0);
         } catch (NumberFormatException e) {
             return false;
         }
