@@ -138,3 +138,8 @@ Item purchased: Black coffee
 Price: 7.5
 Transaction type: Card: Visa
 @ 03-04-2023 19:24:11
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Card: Visa
+@ 03-04-2023 19:25:02
