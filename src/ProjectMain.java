@@ -37,7 +37,6 @@ public class ProjectMain {
                 drinkSelection = drinkMenu(items, prices);
                 if (drinkSelection == items.size()) { // items.size will be the same as the number for the "exit" option
                     stepNotComplete = exitConfirmation(); // exitConfirmation returns a boolean
-                    break;
                 } else {
                     stepNotComplete = false;
                 }
