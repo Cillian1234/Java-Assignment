@@ -1,6 +1,6 @@
 /*
-    ? WORKING ON CODE CLEANUP ?
-    ! BUILD WORKS !
+    ? WORKING ON CASH VALIDATION ?
+    ! BUILD BROKEN !
 */
 
 import java.io.*;
@@ -103,36 +103,39 @@ public class ProjectMain {
         boolean valid = false; // While loops
         boolean cashGiven = false; // Use to check cash given is enough to pay
         double cashTenderedDouble = 0; // Initialise variable used when user string input is parsed to double
-        String cashTendered; // String input taken from user
+        String cashTendered = null; // String input taken from user
 
         while (!valid) {
             System.out.printf("Cash transaction: \nPrice €%.2f \nEnter amount tendered: \n", prices.get(priceIndex));
             cashTendered = sc.nextLine();
-            valid = validator.validateDoubles(cashTendered); // Checks input will parse to a double
-            cashTenderedDouble = Double.parseDouble(cashTendered); // Used in maths so parse string to double once here instead of several times later on
+            valid = validator.validateCash(cashTendered); // Checks input will parse to a double
+            if (valid) {
+                cashTenderedDouble = Double.parseDouble(cashTendered); // Used in maths so parse string to double once here instead of several times later on
+            }
+        }
 
-            if (cashTenderedDouble >= prices.get(priceIndex)){ // Checks if amount entered is sufficient to pay for item
-                System.out.printf("\nChange due = €%.2f \n", (cashTenderedDouble - prices.get(priceIndex))); // Calculates and prints change due
-            } else if (cashTenderedDouble <= prices.get(priceIndex)) { // if amount entered is not sufficient to pay for item
-                while (!cashGiven) { // Reruns code while total amount of money given is not enough to pay for item
+        if (cashTenderedDouble >= prices.get(priceIndex)) { // Checks if amount entered is sufficient to pay for item
+            System.out.printf("\nChange due = €%.2f \n", (cashTenderedDouble - prices.get(priceIndex))); // Calculates and prints change due
+        } else if (cashTenderedDouble <= prices.get(priceIndex)) { // if amount entered is not sufficient to pay for item
+            while (!cashGiven) { // Reruns code while total amount of money given is not enough to pay for item
 
-                    System.out.printf("You are %.2f short \n", (prices.get(priceIndex)-cashTenderedDouble)); // Calculates and prints how much money you are short of price
-                    System.out.println("Please enter extra cash given or type CANCEL to cancel transaction: ");
-                    String extraCash = sc.nextLine();
+                System.out.printf("You are €%.2f short \n", (prices.get(priceIndex) - cashTenderedDouble)); // Calculates and prints how much money you are short of price
+                System.out.println("Please enter extra cash given or type CANCEL to cancel transaction: ");
+                String extraCash = sc.nextLine();
 
-                    if (validator.validateDoubles(extraCash)) { // Validates input is a double again
-                        double extraCashDouble = Double.parseDouble(extraCash); // Also used in maths so parsed to double
-                        cashTenderedDouble = cashTenderedDouble+extraCashDouble; // Add extra cash to total given
-                        if (cashTenderedDouble >= prices.get(priceIndex)) { // If total is more than price of item, break loop
-                            System.out.printf("\nChange due = €%.2f \n", (cashTenderedDouble - prices.get(priceIndex))); // Calculates and prints change due
-                            cashGiven = true;
-                        }
-                    } else if (extraCash.equalsIgnoreCase("CANCEL")){ // If customer can't afford item, typing cancel will abort the transaction
-                        return -1; // -1 is impossible to return unless the code runs through this branch, used to save transaction as CANCELLED
+                if (validator.validateCash(extraCash)) { // Validates input is a double again
+                    double extraCashDouble = Double.parseDouble(extraCash); // Also used in maths so parsed to double
+                    cashTenderedDouble = cashTenderedDouble + extraCashDouble; // Add extra cash to total given
+                    if (cashTenderedDouble >= prices.get(priceIndex)) { // If total is more than price of item, break loop
+                        System.out.printf("\nChange due = €%.2f \n", (cashTenderedDouble - prices.get(priceIndex))); // Calculates and prints change due
+                        cashGiven = true;
                     }
+                } else if (extraCash.equalsIgnoreCase("CANCEL")) { // If customer can't afford item, typing cancel will abort the transaction
+                    return -1; // -1 is impossible to return unless the code runs through this branch, used to save transaction as CANCELLED
                 }
             }
         }
+
         System.out.println("Thank you for your purchase!");
         return cashTenderedDouble;
     }

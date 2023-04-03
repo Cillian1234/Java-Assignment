@@ -43,3 +43,48 @@ Item purchased: Dunno
 Price: 109.0
 Transaction type: Cash: Cash tendered: 110.0
 @ 02-04-2023 15:34:55
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: CANCELLED
+@ 02-04-2023 15:46:40
+
+Item purchased: Another Drink
+Price: 10.15
+Transaction type: Cash: Cash tendered: -10.0
+@ 02-04-2023 16:28:06
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Cash: Cash tendered: 8.0
+@ 03-04-2023 14:35:23
+
+Item purchased: Latte
+Price: 8.0
+Transaction type: Cash: Cash tendered: 8.0
+@ 03-04-2023 14:50:21
+
+Item purchased: Iced coffee
+Price: 11.5
+Transaction type: Cash: Cash tendered: 12.0
+@ 03-04-2023 14:55:07
+
+Item purchased: Iced coffee
+Price: 11.5
+Transaction type: Cash: Cash tendered: 12.0
+@ 03-04-2023 14:55:20
+
+Item purchased: Iced coffee
+Price: 11.5
+Transaction type: CANCELLED
+@ 03-04-2023 14:58:47
+
+Item purchased: Iced coffee
+Price: 11.5
+Transaction type: Cash: Cash tendered: 16.0
+@ 03-04-2023 14:59:09
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Cash: Cash tendered: 50.0
+@ 03-04-2023 15:01:39

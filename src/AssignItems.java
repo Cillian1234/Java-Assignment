@@ -6,15 +6,15 @@ import java.io.*;
 import java.util.*;
 
 public class AssignItems {
-    ArrayList<Double> prices = new ArrayList<>(); // Arraylists for prices and names of items which we will return to the main class
-    ArrayList<String> items = new ArrayList<>();
+    private final ArrayList<Double> prices = new ArrayList<>(); // Arraylists for item prices, returned in getPrices()
+    private final ArrayList<String> items = new ArrayList<>(); // Arraylist for item names, returned in getItems()
 
     AssignItems() /* Reads inventory file and assigns each line to items arraylist, currently does not handle prices separately */
     {
         Validation validator = new Validation(); // Creates validator object
         ArrayList<String> tempList = new ArrayList<>(); // Temporary arraylist to load the initial strings from inventory file into, these strings are entire lines from the file
         try {
-            File inventory = new File("inventory.csv"); // Create file object called inventory with path to inventory text file
+            File inventory = new File("inventory.csv"); // Create file object called inventory with path to inventory csv file
             Scanner reader = new Scanner(inventory); // Scanner object to read contents of inventory file
             while (reader.hasNextLine()) /* While there is a next line in inventory file this will continue to add them to the temporary arraylist */
             {
@@ -24,7 +24,6 @@ public class AssignItems {
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             System.out.println("!! Error in inventory file, check filepath is correct !!");
-            e.printStackTrace();
         }
 
         Collections.sort(tempList);
