@@ -26,7 +26,7 @@ public class AssignItems {
             System.out.println("!! Error in inventory file, check filepath is correct !!");
         }
 
-        Collections.sort(tempList);
+        Collections.sort(tempList); // Sorts items into alphabetical order
 
         String[] splitArray; // Temporary array used by .split method to store strings created after split
         for (String wholeItem : tempList) { // Loop splits each string in tempList
