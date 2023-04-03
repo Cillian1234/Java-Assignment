@@ -2,4 +2,4 @@
 *.class
 *.txt
 /.idea/
-/out/
+/out/production/
