@@ -37,7 +37,6 @@ public class ProjectMain {
                 drinkSelection = drinkMenu(items, prices);
                 if (drinkSelection == items.size()) { // items.size will be the same as the number for the "exit" option
                     stepComplete = exitConfirmation(); // exitConfirmation returns a boolean
-                    break;
                 } else {
                     stepComplete = true;
                 }
@@ -191,10 +190,10 @@ public class ProjectMain {
             valid = validator.validateInts(selection, 2);
         }
 
-        if (Integer.parseInt(selection)==2)
-            return true; // If you choose option 2, "No", return true which causes while loop for whatever step of the process you are on to continue running, so you can continue with transaction
+        if (Integer.parseInt(selection)==1)
+            return true; // Returning false sets boolean running to false which breaks while loop
         else
-            return false; // Returning false sets boolean running to false which breaks while loop
+            return false; // If you choose option 2, "No", return true which causes while loop for whatever step of the process you are on to continue running, so you can continue with transaction
     }
 
     static void writeTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to history file along with date and time of sale */

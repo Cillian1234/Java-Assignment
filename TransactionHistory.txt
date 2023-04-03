@@ -203,3 +203,18 @@ Item purchased: Black coffee
 Price: 7.5
 Transaction type: Card: Visa
 @ 03-04-2023 23:17:02
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Cash: Cash tendered: 8.0
+@ 03-04-2023 23:25:11
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Card: Visa
+@ 03-04-2023 23:25:21
+
+Item purchased: Iced coffee
+Price: 11.5
+Transaction type: Card: MasterCard
+@ 03-04-2023 23:25:23
