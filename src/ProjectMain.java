@@ -30,16 +30,16 @@ public class ProjectMain {
             int transactionType = 0; // Stores transaction type returned by transactionType(), used in writeTransactions()
             String cardType = null; // Stores card type used, used in writeTransactions()
             double cashTendered = 0; // Stores cash tendered in cash transactions
-            boolean stepNotComplete = true; // Runs while loops
+            boolean stepComplete = false; // Runs while loops
 
             // Handles running of drinkMenu and exit from menu
-            while (stepNotComplete) {
+            while (!stepComplete) {
                 drinkSelection = drinkMenu(items, prices);
                 if (drinkSelection == items.size()) { // items.size will be the same as the number for the "exit" option
-                    stepNotComplete = exitConfirmation(); // exitConfirmation returns a boolean
+                    stepComplete = exitConfirmation(); // exitConfirmation returns a boolean
                     break;
                 } else {
-                    stepNotComplete = false;
+                    stepComplete = true;
                 }
             }
 
@@ -48,19 +48,19 @@ public class ProjectMain {
                 break; // Breaks running while loop
             }
 
-            stepNotComplete = true; // Reset to false to run more whiles
+            stepComplete = false; // Reset to false to run more whiles
 
             // Handles choosing transaction type, running cash calculations or choosing card type
-            while (stepNotComplete) {
+            while (!stepComplete) {
                 transactionType = transactionType(); // Transaction type used to pick between card and cash, this is used when writing transactions later
                 if (transactionType == 1) {
                     cashTendered = cashMaths(prices, drinkSelection); // Returns double
-                    stepNotComplete = false;
+                    stepComplete = true;
                 } else if (transactionType == 2) {
                     cardType = cardType(prices, drinkSelection); // Returns string
-                    stepNotComplete = false;
+                    stepComplete = true;
                 } else {
-                    stepNotComplete = exitConfirmation(); // Terminates while loop running entire program
+                    stepComplete = exitConfirmation(); // Terminates while loop running entire program
                 }
             }
 
@@ -191,10 +191,10 @@ public class ProjectMain {
             valid = validator.validateInts(selection, 2);
         }
 
-        if (Integer.parseInt(selection)==1)
-            return false; // Returning false sets boolean running to false which breaks while loop
-        else
+        if (Integer.parseInt(selection)==2)
             return true; // If you choose option 2, "No", return true which causes while loop for whatever step of the process you are on to continue running, so you can continue with transaction
+        else
+            return false; // Returning false sets boolean running to false which breaks while loop
     }
 
     static void writeTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to history file along with date and time of sale */
