@@ -13,8 +13,8 @@ public class test {
         ArrayList<String> tempList = new ArrayList<>();
 
         try {
-            File invetory = new File("inventory.txt");
-            Scanner reader = new Scanner(invetory);
+            File inventory = new File("invetory.txt");
+            Scanner reader = new Scanner(inventory);
             while (reader.hasNextLine()) {
                 tempList.add(reader.nextLine());
             }

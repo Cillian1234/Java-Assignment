@@ -1,5 +1,5 @@
 /*
-    ? WORKING ON CASH VALIDATION ?
+    ? WORKING ON REMOVING SPACES FROM INPUTS?
     ! BUILD BROKEN !
 */
 
@@ -19,7 +19,7 @@ public class ProjectMain {
     public static void main(String[] args) {
         System.out.println("\nWelcome to the cafe");
 
-        while (0==0) {
+        while (true) {
             
             ArrayList<String> items = assigner.getItems(); // Assigns items from assigner object to arraylist to make it simpler to use
             ArrayList<Double> prices = assigner.getPrices(); // " prices "
@@ -72,6 +72,7 @@ public class ProjectMain {
         while (!valid) {
             System.out.println("Please make a selection by entering the number of item: ");
             selection = sc.nextLine();
+            selection = validator.removeSpaces(selection); // Removes spaces in input which caused errors
             valid = validator.validateInts(selection, items.size());
         }
         return Integer.parseInt(selection)-1;
@@ -87,6 +88,7 @@ public class ProjectMain {
             System.out.println("1. Cash \n2. Card \n3. Exit");
             System.out.println("Please make a selection by entering the number of item: ");
             transactionChoice = sc.nextLine();
+            transactionChoice = validator.removeSpaces(transactionChoice); // Removes spaces in input which caused errors
             valid = validator.validateInts(transactionChoice, 2);
         }
 
@@ -103,11 +105,11 @@ public class ProjectMain {
         boolean valid = false; // While loops
         boolean cashGiven = false; // Use to check cash given is enough to pay
         double cashTenderedDouble = 0; // Initialise variable used when user string input is parsed to double
-        String cashTendered = null; // String input taken from user
+        String cashTendered; // String input taken from user
 
         while (!valid) {
             System.out.printf("Cash transaction: \nPrice €%.2f \nEnter amount tendered: \n", prices.get(priceIndex));
-            cashTendered = sc.nextLine();
+            cashTendered = sc.nextLine(); // Removing spaces not necessary
             valid = validator.validateCash(cashTendered); // Checks input will parse to a double
             if (valid) {
                 cashTenderedDouble = Double.parseDouble(cashTendered); // Used in maths so parse string to double once here instead of several times later on
@@ -121,7 +123,7 @@ public class ProjectMain {
 
                 System.out.printf("You are €%.2f short \n", (prices.get(priceIndex) - cashTenderedDouble)); // Calculates and prints how much money you are short of price
                 System.out.println("Please enter extra cash given or type CANCEL to cancel transaction: ");
-                String extraCash = sc.nextLine();
+                String extraCash = sc.nextLine(); // Removing spaces not necessary
 
                 if (validator.validateCash(extraCash)) { // Validates input is a double again
                     double extraCashDouble = Double.parseDouble(extraCash); // Also used in maths so parsed to double
@@ -149,6 +151,7 @@ public class ProjectMain {
                 System.out.printf("Card transaction: \nPrice €%.2f \nChoose card type: \n1. Visa\n2. Mastercard\n", prices.get(priceIndex));
                 System.out.println("Please make a selection by entering the number of item: ");
                 cardType = sc.nextLine();
+                cardType = validator.removeSpaces(cardType); // Removes spaces in input which caused errors
                 valid = validator.validateInts(cardType, 1);
             }
             switch (Integer.parseInt(cardType)) {
@@ -167,6 +170,7 @@ public class ProjectMain {
             System.out.println("Are you sure you would like to exit? \n1. Yes\n2. No");
             System.out.println("Please make a selection by entering the number of item: ");
             selection = sc.nextLine();
+            selection = validator.removeSpaces(selection); // Removes spaces in input which caused errors
             valid = validator.validateInts(selection, 2); // Boundary of 2 hard coded because there will only ever be two options here
         }
         switch (Integer.parseInt(selection)) {
