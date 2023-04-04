@@ -17,19 +17,23 @@ public class ProjectMain {
         static AssignItems assigner = new AssignItems(); // Creates arraylists containing items
         static Scanner sc = new Scanner(System.in); // Creates scanner used for user input
     public static void main(String[] args) {
+            boolean betterTransactionWriting = false; // Change to true to use better transaction writing (Will write each transaction directly after it takes place instead of at program end)
             boolean running = true;
+
+            int drinkSelection = 0; // Stores index of drink selection in items ArrayList, this index also points to price of drink in prices ArrayList
+            int transactionType = 0; // Stores transaction type returned by transactionType(), used in writeTransactions()
+            String cardType = null; // Stores card type used, used in writeTransactions()
+            double cashTendered = 0; // Stores cash tendered in cash transactions
+
             ArrayList<String> items = assigner.getItems(); // Assigns items from assigner object to arraylist to make it simpler to use
             ArrayList<Double> prices = assigner.getPrices(); // " prices "
+            ArrayList<String> transactions = new ArrayList<>();
 
         System.out.println("\nWelcome to the cafe");
 
         // While is set to a temporary value that is always true, this will probably be reworked later on
         while (running) {
 
-            int drinkSelection = 0; // Stores index of drink selection in items ArrayList, this index also points to price of drink in prices ArrayList
-            int transactionType = 0; // Stores transaction type returned by transactionType(), used in writeTransactions()
-            String cardType = null; // Stores card type used, used in writeTransactions()
-            double cashTendered = 0; // Stores cash tendered in cash transactions
             boolean stepComplete = false; // Runs while loops
 
             // Handles running of drinkMenu and exit from menu
@@ -68,7 +72,24 @@ public class ProjectMain {
                 break; // Breaks running while loop
             }
 
-            writeTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType); // Writes current transaction to history !! runs after each individual transaction !!
+            if (betterTransactionWriting) {
+                BetterWriteTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType); // Writes current transaction to history !! runs after each individual transaction !!
+            } else {
+                transactions.add(writeTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType));
+            }
+        }
+
+        try {
+            FileWriter transactionWrite = new FileWriter("TransactionHistory.txt", true); // Opens filewriter in transaction history file, set to append to file
+
+            for (String transaction : transactions) {
+                transactionWrite.write(transaction); // Writes transaction to file
+            }
+
+            transactionWrite.close(); // Closes filewriter
+            System.out.println("Transaction written to history"); // Confirmation message
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to history");
         }
     }
 
@@ -196,7 +217,7 @@ public class ProjectMain {
             return false; // If you choose option 2, "No", return true which causes while loop for whatever step of the process you are on to continue running, so you can continue with transaction
     }
 
-    static void writeTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to history file along with date and time of sale */
+    static void BetterWriteTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to history file along with date and time of sale */
     {
         if (cashTendered == -1) { // -1 is returned by cashMaths() if the order is aborted, impossible to return this number otherwise
             try {
@@ -221,6 +242,21 @@ public class ProjectMain {
                 System.out.println("An error occurred while writing to history");
             }
         }
+    }
+
+    static String writeTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType)
+    {
+        String transaction = null;
+        if (cashTendered == -1) { // -1 is returned by cashMaths() if the order is aborted, impossible to return this number otherwise
+            transaction = ("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: CANCELLED" + "\n@ " + dateTime() + "\n"); // Writes everything to file CANCELLED TRANSACTION
+        } else {
+            if (transactionType == 1) {
+                transaction = ("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: Cash: " + "Cash tendered: " + cashTendered + "\nChange due: " + (cashTendered-prices.get(drinkSelection)) + "\n@ " + dateTime() + "\n"); // Writes everything to file
+            } else if (transactionType == 2) {
+                transaction = ("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: Card: " + cardType + "\n@ " + dateTime() + "\n"); // Writes everything to file
+            }
+        }
+        return transaction;
     }
 
     static String dateTime() /* Gets and formats date for transaction history write */

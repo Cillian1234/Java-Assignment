@@ -230,3 +230,40 @@ Price: 7.5
 Transaction type: Cash: Cash tendered: 9.0
 Change due: 1.5
 @ 04-04-2023 00:48:40
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Cash: Cash tendered: 10.0
+Change due: 2.5
+@ 04-04-2023 01:39:56
+
+Item purchased: Iced coffee
+Price: 11.5
+Transaction type: Card: Visa
+@ 04-04-2023 01:40:02
+
+Item purchased: Latte
+Price: 8.0
+Transaction type: Card: MasterCard
+@ 04-04-2023 01:40:07
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Card: Visa
+@ 04-04-2023 01:41:36
+
+Item purchased: Milk with ice
+Price: 10.0
+Transaction type: CANCELLED
+@ 04-04-2023 01:41:45
+
+Item purchased: Latte
+Price: 8.0
+Transaction type: Cash: Cash tendered: 8.0
+Change due: 0.0
+@ 04-04-2023 01:41:52
+
+Item purchased: Latte
+Price: 8.0
+Transaction type: Card: MasterCard
+@ 04-04-2023 01:41:56
