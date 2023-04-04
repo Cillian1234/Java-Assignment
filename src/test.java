@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class test {
     public static void main(String[] args) {
 
@@ -13,7 +12,7 @@ public class test {
         ArrayList<String> tempList = new ArrayList<>();
 
         try {
-            File inventory = new File("invetory.txt");
+            File inventory = new File("inventory.csv");
             Scanner reader = new Scanner(inventory);
             while (reader.hasNextLine()) {
                 tempList.add(reader.nextLine());
@@ -40,8 +39,6 @@ public class test {
             }
         }
 
-        System.out.println(items);
-        System.out.println(prices);
 
     }
 }

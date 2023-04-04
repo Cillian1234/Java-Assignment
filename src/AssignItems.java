@@ -31,10 +31,10 @@ public class AssignItems {
         String[] splitArray; // Temporary array used by .split method to store strings created after split
         for (String wholeItem : tempList) { // Loop splits each string in tempList
             splitArray = wholeItem.split(","); // Splits strings at the commas
-            for (String splitString : splitArray) { // Nested loop checks if splitString could be a double, if true then parse to a double and add to prices ArrL
+            for (String splitString : splitArray) { // Nested loop checks if splitString could be a double, if true then parse to a double and add to prices ArrayList
                 if (validator.validateDoubles(splitString)) {
                     prices.add(Double.parseDouble(splitString));
-                } else { // Else the string must be the item name, add it to the items array as is
+                } else { // Else the string must be the item name, add it to the items ArrayList as is
                     items.add(splitString);
                 }
             }
