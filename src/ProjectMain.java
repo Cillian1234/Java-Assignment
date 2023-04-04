@@ -18,7 +18,6 @@ public class ProjectMain {
         static Scanner sc = new Scanner(System.in); // Creates scanner used for user input
     public static void main(String[] args) {
             boolean betterTransactionWriting = false; // Change to true to use better transaction writing (Will write each transaction directly after it takes place instead of at program end)
-            boolean running = true;
 
             int drinkSelection = 0; // Stores index of drink selection in items ArrayList, this index also points to price of drink in prices ArrayList
             int transactionType = 0; // Stores transaction type returned by transactionType(), used in writeTransactions()
@@ -32,7 +31,7 @@ public class ProjectMain {
         System.out.println("\nWelcome to the cafe");
 
         // While is set to a temporary value that is always true, this will probably be reworked later on
-        while (running) {
+        while (0==0) {
 
             boolean stepComplete = false; // Runs while loops
 
@@ -217,7 +216,7 @@ public class ProjectMain {
             return false; // If you choose option 2, "No", return true which causes while loop for whatever step of the process you are on to continue running, so you can continue with transaction
     }
 
-    static void BetterWriteTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to history file along with date and time of sale */
+    static void BetterWriteTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to history file along with date and time of sale after each sale */
     {
         if (cashTendered == -1) { // -1 is returned by cashMaths() if the order is aborted, impossible to return this number otherwise
             try {
@@ -244,7 +243,7 @@ public class ProjectMain {
         }
     }
 
-    static String writeTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType)
+    static String writeTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to a String along with date and time of sale after each sale, String is added to transactions ArrayList and written to file at program end */
     {
         String transaction = null;
         if (cashTendered == -1) { // -1 is returned by cashMaths() if the order is aborted, impossible to return this number otherwise
