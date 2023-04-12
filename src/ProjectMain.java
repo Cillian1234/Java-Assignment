@@ -1,5 +1,5 @@
 /*
-    ? WORKING ON TRANSACTION HISTORY ARRAY ?
+    ? FINISHED ?
     ! BUILD WORKING !
 */
 
@@ -72,7 +72,7 @@ public class ProjectMain {
             }
 
             if (betterTransactionWriting) {
-                BetterWriteTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType); // Writes current transaction to history !! runs after each individual transaction !!
+                betterWriteTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType); // Writes current transaction to history !! runs after each individual transaction !!
             } else {
                 transactions.add(writeTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType));
             }
@@ -216,7 +216,7 @@ public class ProjectMain {
             return false; // If you choose option 2, "No", return true which causes while loop for whatever step of the process you are on to continue running, so you can continue with transaction
     }
 
-    static void BetterWriteTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to history file along with date and time of sale after each sale */
+    static void betterWriteTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to history file along with date and time of sale after each sale */
     {
         if (cashTendered == -1) { // -1 is returned by cashMaths() if the order is aborted, impossible to return this number otherwise
             try {
