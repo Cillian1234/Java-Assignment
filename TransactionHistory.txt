@@ -267,3 +267,13 @@ Item purchased: Latte
 Price: 8.0
 Transaction type: Card: MasterCard
 @ 04-04-2023 01:41:56
+
+Item purchased: Black coffee
+Price: 7.5
+Transaction type: Card: Visa
+@ 14-04-2023 21:43:22
+
+Item purchased: Iced coffee
+Price: 11.5
+Transaction type: Card: MasterCard
+@ 14-04-2023 21:43:27

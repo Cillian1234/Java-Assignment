@@ -17,7 +17,6 @@ public class ProjectMain {
         static AssignItems assigner = new AssignItems(); // Creates arraylists containing items
         static Scanner sc = new Scanner(System.in); // Creates scanner used for user input
     public static void main(String[] args) {
-            boolean betterTransactionWriting = false; // Change to true to use better transaction writing (Will write each transaction directly after it takes place instead of at program end)
 
             int drinkSelection = 0; // Stores index of drink selection in items ArrayList, this index also points to price of drink in prices ArrayList
             int transactionType = 0; // Stores transaction type returned by transactionType(), used in writeTransactions()
@@ -26,7 +25,7 @@ public class ProjectMain {
 
             ArrayList<String> items = assigner.getItems(); // Assigns items from assigner object to arraylist to make it simpler to use
             ArrayList<Double> prices = assigner.getPrices(); // " prices "
-            ArrayList<String> transactions = new ArrayList<>();
+            ArrayList<String> transactions = new ArrayList<>(); // Stores formatted strings containing transaction information
 
         System.out.println("\nWelcome to the cafe");
 
@@ -71,11 +70,8 @@ public class ProjectMain {
                 break; // Breaks running while loop
             }
 
-            if (betterTransactionWriting) {
-                betterWriteTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType); // Writes current transaction to history !! runs after each individual transaction !!
-            } else {
-                transactions.add(writeTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType));
-            }
+            transactions.add(writeTransactions(items, prices, drinkSelection, transactionType, cashTendered, cardType)); // Creates string containing transaction information
+
         }
 
         try {
@@ -206,53 +202,28 @@ public class ProjectMain {
             System.out.println("Please make a selection by entering the number of item: ");
             selection = sc.nextLine();
             selection = validator.removeSpaces(selection); // Removes spaces in input which caused errors
-            //Checks input is an integer and within acceptable range, returns boolean // Boundary of 2 hard coded because there will only ever be two options here
-            valid = validator.validateInts(selection, 2);
+            valid = validator.validateInts(selection, 2); //Checks input is an integer and within acceptable range, returns boolean
         }
 
         if (Integer.parseInt(selection)==1)
-            return true; // Returning false sets boolean running to false which breaks while loop
+            return true; // Returning true confirms choice, ending current step of transaction with exit option chosen
         else
-            return false; // If you choose option 2, "No", return true which causes while loop for whatever step of the process you are on to continue running, so you can continue with transaction
+            return false; // Returning false cancels exit, returning to current step of transaction
     }
 
-    static void betterWriteTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to history file along with date and time of sale after each sale */
-    {
-        if (cashTendered == -1) { // -1 is returned by cashMaths() if the order is aborted, impossible to return this number otherwise
-            try {
-                FileWriter transactionWrite = new FileWriter("TransactionHistory.txt", true); // Opens filewriter in transaction history file, set to append to file
-                transactionWrite.write("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: CANCELLED" + "\n@ " + dateTime() + "\n"); // Writes everything to file CANCELLED TRANSACTION
-                transactionWrite.close(); // Closes filewriter
-                System.out.println("Transaction written to history"); // Confirmation message
-            } catch (IOException e) {
-                System.out.println("An error occurred while writing to history");
-            }
-        } else {
-            try {
-                FileWriter transactionWrite = new FileWriter("TransactionHistory.txt", true); // Opens filewriter in transaction history file, set to append to file
-                if (transactionType == 1) {
-                    transactionWrite.write("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: Cash: " + "Cash tendered: " + cashTendered + "\nChange due: " + (cashTendered-prices.get(drinkSelection)) + "\n@ " + dateTime() + "\n"); // Writes everything to file
-                } else if (transactionType == 2) {
-                    transactionWrite.write("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: Card: " + cardType + "\n@ " + dateTime() + "\n"); // Writes everything to file
-                }
-                transactionWrite.close(); // Closes filewriter
-                System.out.println("Transaction written to history"); // Confirmation message
-            } catch (IOException e) {
-                System.out.println("An error occurred while writing to history");
-            }
-        }
-    }
-
-    static String writeTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkSelection, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to a String along with date and time of sale after each sale, String is added to transactions ArrayList and written to file at program end */
+    static String writeTransactions(ArrayList<String> items, ArrayList<Double> prices, int drinkIndex, int transactionType, double cashTendered, String cardType) /* Writes drink name and price to a String along with date and time of sale after each sale, String is added to transactions ArrayList and written to file at program end */
     {
         String transaction = null;
+
         if (cashTendered == -1) { // -1 is returned by cashMaths() if the order is aborted, impossible to return this number otherwise
-            transaction = ("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: CANCELLED" + "\n@ " + dateTime() + "\n"); // Writes everything to file CANCELLED TRANSACTION
+            transaction = ("\nItem purchased: " + items.get(drinkIndex) + "\nPrice: " + prices.get(drinkIndex) + "\nTransaction type: CANCELLED" + "\n@ " + dateTime() + "\n"); // Writes everything to file CANCELLED TRANSACTION
+
         } else {
-            if (transactionType == 1) {
-                transaction = ("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: Cash: " + "Cash tendered: " + cashTendered + "\nChange due: " + (cashTendered-prices.get(drinkSelection)) + "\n@ " + dateTime() + "\n"); // Writes everything to file
-            } else if (transactionType == 2) {
-                transaction = ("\nItem purchased: " + items.get(drinkSelection) + "\nPrice: " + prices.get(drinkSelection) + "\nTransaction type: Card: " + cardType + "\n@ " + dateTime() + "\n"); // Writes everything to file
+            if (transactionType == 1) { // 1 = cash transaction
+                transaction = ("\nItem purchased: " + items.get(drinkIndex) + "\nPrice: " + prices.get(drinkIndex) + "\nTransaction type: Cash: " + "Cash tendered: " + cashTendered + "\nChange due: " + (cashTendered-prices.get(drinkIndex)) + "\n@ " + dateTime() + "\n"); // Writes everything to file
+
+            } else if (transactionType == 2) { // 2 = card transaction
+                transaction = ("\nItem purchased: " + items.get(drinkIndex) + "\nPrice: " + prices.get(drinkIndex) + "\nTransaction type: Card: " + cardType + "\n@ " + dateTime() + "\n"); // Writes everything to file
             }
         }
         return transaction;
