@@ -82,7 +82,7 @@ public class ProjectMain {
             }
 
             transactionWrite.close(); // Closes filewriter
-            System.out.println("Transaction written to history"); // Confirmation message
+            System.out.println("Transactions written to history"); // Confirmation message
         } catch (IOException e) {
             System.out.println("An error occurred while writing to history");
         }
